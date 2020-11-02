@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://use.fontawesome.com/f6ba9fa57d.js"></script>
+
+    <style>
+
+    	 body{
+        padding-top: 100px;
+        background: #FFF0F5
+      }
+
+    	.navbar-light{
+        background-color: #FFB6C1;
+      }
+      .navbar{
+        min-height: 70px;
+      }
+
+      .carousel-control-prev-icon,.carousel-control-next-icon {
+		  height: 100px;
+		  width: 100px;
+		  outline: black;
+		  background-size: 100%, 100%;
+		  background-image: none;
+		}
+
+		.carousel-control-next-icon:after
+		{
+		  content: '>';
+		  font-size: 55px;
+		  color: purple;
+		}
+
+		.carousel-control-prev-icon:after {
+		  content: '<';
+		  font-size: 55px;
+		  color: purple;
+		}
+
+		.btm{
+			margin-bottom: 20px;
+		}
+
+		.one{
+			background-color: #A9A9A9;
+			border-radius: 20px; 
+		}
+
+		.fotter{
+			background-color: #FFB6C1;
+			margin: 0px auto;
+			padding: 10px 0px;
+		}
+
+    </style>
+
+    <title>Product Information Page</title>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-light navbar-expand-sm fixed-top justify-content-end">
+    	<i class="fa fa-home" style="font-size: 145%;">Home</i>
+    </nav>
+
+    <div class="container">
+    	<div class="row justify-content-center">
+    		<div class="col-md-5 btm one" >
+    			<div id="carouselExampleControls" class="carousel slide" data-interval="false">
+				  <div class="carousel-inner">
+				    <img src="data:image/<%=founditem.img.contentType%>;base64, 
+                     <%=founditem.img.data.toString('base64')%>"> 
+				  </div>
+				  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+    		</div>
+
+    		<div class="col-md-4">
+    			<div class="card btm" style="width: 18rem;border-radius: 20px">
+				  <div class="card-body">
+				    <h5 class="card-title">Product's Information</h5><br>
+				    <h6 class="card-subtitle mb-2"><%= founditem.name %></h6>
+    				<i class="fa fa-rupee" style="font-size:24px;color:purple"><%= founditem.price %></i>
+				  </div>
+				</div>
+				<div class="card" style="width: 18rem; border-radius: 20px">
+				  <div class="card-body">
+				    <h5 class="card-title">Seller's Information</h5>
+					  Item Added <em><%= moment(founditem.createdAt).fromNow() %></em>
+				    <i class="fa fa-phone" style="font-size:20px;color:purple"> <%= founditem.contact %></i>
+				    <i class="fa fa-envelope" style="font-size:20px;color:purple"> <%= founditem.email %></i>
+				  </div>
+				</div>
+    		</div>
+    	</div>
+
+    	<div class="row justify-content-center">
+    		<div class="col-md-9">
+    			<div class="card" style="margin-bottom: 100px;margin-top: 20px">
+				  <div class="card-body">
+				    <h5 class="card-title">Decription</h5>
+				    <p style="color: purple"><%= founditem.desc %></p>
+				  </div>
+				</div>
+    		</div>
+    	</div>
+    </div>
+
+    <footer class="fotter fixed-bottom">
+      <div class="container">
+        <div class="row justify-content-center">             
+          <div class="col-auto">
+            <p>Copyright 2020 IIT Jammu</p>
+          </div>
+        </div>
+      </div>
+    </footer>
