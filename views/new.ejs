@@ -1,0 +1,93 @@
+<%- include ('partials/header')	%>
+    <div class="container">
+      <div class="row row-content justify-content-center">
+
+        <div class="col-md-9">
+          <h3>Please fill the details</h3>
+        </div>
+
+        <div class="col-12 col-md-9">
+          <form method='post' action='/Buysell' enctype="multipart/form-data">
+
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="ItemName">Item Name</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" id="ItemName" placeholder="Item Name" name="name" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="BasicDescription">Description</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" id="BasicDescription" placeholder="Basic Description" name="desc" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="telnum" class="col-12 col-md-2 col-form-label">Contact</label>
+              <div class="col-md-10">
+                <input type="tel" class="form-control" id="telnum" name="contact" placeholder="Mobile number">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="emailid" class="col-md-2 col-form-label">Email</label>
+              <div class="col-md-10">
+                <input type="email" class="form-control" id="emailid" name="email" placeholder="Email">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="image" class="col-md-2 col-form-label">Upload Photo</label>
+              <div class="col-md-10">
+                <input type="file" class="form-control" id="image" name="image" value="" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="category" class="col-md-2 col-form-label">Choose category</label>
+              <div class="col-md-10">
+                <select  class='form-control'name="category" id="category">
+                  <option value="electronics">Electronics</option>
+                  <option value="food">Food</option>
+                  <option value="Daily-use">Daily-use</option>
+                  <option value="Automobile">Automobile</option>
+                  <option value="accessories">Accessories</option>
+                  <option value="watches">Watches</option>
+                  <option value="others">Others</option>
+              </select>
+              </div>
+              
+            </div>
+
+            <div class="form-group row">
+              <label for="price" class="col-md-2 col-form-label">Set Price</label>
+              <div class="col-md-10">
+                <input type="number" class="form-control" id="price" name="price" placeholder="In Ruppees" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-10 offset-md-6">
+                <button type="submit" class="btn btn-light btn-lg">Post Now</button>
+              </div>
+            </div>
+
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="fotter fixed-bottom">
+      <div class="container">
+        <div class="row justify-content-center">             
+          <div class="col-auto">
+            <p>© Copyright 2020 IIT Jammu</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+<%- include ('partials/footer')	%>
