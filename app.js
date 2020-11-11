@@ -192,7 +192,7 @@ function escapeRegex(text) {
 
 
 //SERVER
-app.listen(3000 || process.env.port,function(req,res){
+app.listen(8000 || process.env.port,function(req,res){
 	console.log("Server Has been Started");
 });
 
