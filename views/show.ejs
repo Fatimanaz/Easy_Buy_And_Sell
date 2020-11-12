@@ -67,7 +67,7 @@
   <body>
     
     <nav class="navbar navbar-light navbar-expand-sm fixed-top justify-content-end">
-    	<i class="fa fa-home" style="font-size: 145%;">Home</i>
+    	<a href='/Buysell' class="fa fa-home" style="font-size: 145%;">Home</a>
     </nav>
 
     <div class="container">
@@ -95,7 +95,8 @@
     		<div class="col-md-4">
     			<div class="card btm" style="width: 18rem;border-radius: 20px">
 				  <div class="card-body ">
-				    <h5 class="card-title">Product's Information</h5><br>
+				    <h5 class="card-title">Product's Information</h5>
+					 <h5 class="card-subtitle">Seller Name <em><%= founditem.author.username%></em></h5><br>
 				    <h6 class="card-subtitle mb-2"><%= founditem.name %></h6>
     				<i class="fa fa-rupee" style="font-size:24px;color:purple"><%= founditem.price %></i>
 				  </div>
