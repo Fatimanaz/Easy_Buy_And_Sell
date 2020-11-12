@@ -41,6 +41,7 @@ var UserSchema = new Schema({
 	userid : String ,
 	phoneNumber : Number,
 	googleData : Object,
+	googleId : Number ,
 	createdAt: { type: Date, default: Date.now }
 	
 });
@@ -51,6 +52,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "https://csp-project-1-llfmm.run-ap-south1.goorm.io/auth/google/callback",
   },
     function(accessToken, refreshToken, profile, done) {
+	   
         User.findOne({ googleId: profile.id }, function (err, user) {
 		   if(err){
 			   return done(err);
@@ -59,7 +61,8 @@ passport.use(new GoogleStrategy({
 			   user = new User({
 				   username : `${(profile.name.givenName || "")}`,
 					googleData : profile,
-					userid : profile.emails[0].value
+					userid : profile.emails[0].value ,
+				    googleId : profile.id 
 			   })
 			   user.save(function(err) {
                     if (err) console.log(err);
@@ -67,6 +70,7 @@ passport.use(new GoogleStrategy({
                 });
 		   }
 		   else{
+			  
 			   return done(err, user);
 		   }
          
