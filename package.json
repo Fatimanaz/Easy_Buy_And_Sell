@@ -14,12 +14,16 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "moment": "^2.29.1",
     "mongoose": "^5.10.9",
+    "mongoose-findorcreate": "^3.0.0",
     "multer": "^1.4.2",
     "nodemon": "^2.0.6",
     "passport": "^0.4.1",
+    "passport-google-authcode": "^0.1.5",
     "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0"
   }
 }

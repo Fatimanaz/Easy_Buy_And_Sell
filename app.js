@@ -13,9 +13,19 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()) 
 
+app.use(require("express-session")({
+    secret: "anythintg!",
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-//DATABASE and SCHEMA SETUP
+
+app.use(function(req, res, next){
+   res.locals.currentUser = req.user;
+   next();
+});
+							//DATABASE and SCHEMA SETUP
 mongoose.connect('mongodb://localhost:27017/BUYSELLDB',{ useNewUrlParser: true,useUnifiedTopology: true });
 var Schema=mongoose.Schema;
 var ItemSchema=new Schema({
@@ -30,6 +40,13 @@ var ItemSchema=new Schema({
     },
 	category:String,
 	price:String,
+	author: {
+      id: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "User"
+      },
+      username: String
+   },
    	createdAt: { type: Date, default: Date.now }
   
 });
@@ -49,35 +66,43 @@ var User = mongoose.model('User' , UserSchema);
 passport.use(new GoogleStrategy({
     clientID: "552553742341-gcpnpa2oqpajueshbrtuverovukc7e37.apps.googleusercontent.com",
     clientSecret: "lzCurWvAeTNNvSGQskLqA14j",
-    callbackURL: "https://csp-project-1-llfmm.run-ap-south1.goorm.io/auth/google/callback",
+    callbackURL: "https://buysellapp01.run-ap-south1.goorm.io/auth/google/callback",
   },
     function(accessToken, refreshToken, profile, done) {
-	   
-        User.findOne({ googleId: profile.id }, function (err, user) {
-		   if(err){
-			   return done(err);
-		   }
-		   if(!user){
-			   user = new User({
-				   username : `${(profile.name.givenName || "")}`,
-					googleData : profile,
-					userid : profile.emails[0].value ,
-				    googleId : profile.id 
-			   })
-			   user.save(function(err) {
-                    if (err) console.log(err);
-                    return done(err, user);
-                });
-		   }
-		   else{
-			  
-			   return done(err, user);
-		   }
-         
-       });
-  }
-));
 
+	   if(profile._json.hd === "iitjammu.ac.in"){
+			User.findOne({ googleId: profile.id }, function (err, user) {
+			   if(err){
+				   return done(err);
+			   }
+			   if(!user){
+				   user = new User({
+					   username : `${(profile.name.givenName || "")}`,
+						googleData : profile,
+						userid : profile.emails[0].value ,
+						googleId : profile.id 
+				   })
+				   user.save(function(err) {
+						if (err) console.log(err);
+						return done(err, user);
+					});
+			   }
+			   else{
+
+				   return done(err, user);
+			   }
+
+		   });
+	   }
+		else{
+				 return done();
+			}
+	}
+								)) ;
+
+		
+			
+							///IMAGE UPLOAD////
 var fs = require('fs'); 
 var path = require('path'); 
 var multer = require('multer'); 
@@ -92,16 +117,20 @@ var storage = multer.diskStorage({
 }); 
   
 var upload = multer({ storage: storage }); 
+							///IMAGE UPLOAD ENDED////
 
-//ROUTES
+
+
+										//ROUTES
 
 // ADDING A NEW ITEM
-app.get('/Buysell/new',function(req,res){
+app.get('/Buysell/new',isLoggedIn, function(req,res){
 	res.render('new');
 });
 
 // Home Page
 app.get('/Buysell',function (req, res){
+	  // console.log(req.user);
 	// 	search function
 	var noMatch=null;
 	 if(req.query.search) {
@@ -124,13 +153,13 @@ app.get('/Buysell',function (req, res){
 			console.log(err); 
 		} 
 		else { 
-			res.render('home', { items: items,noMatch:noMatch }); 
+			res.render('home', { items: items,noMatch:noMatch}); 
 		} 
 	}); 
 }); 
 
-// Uploading the item
-app.post('/Buysell', upload.single('image'), (req, res, next) => { 
+//Adding  new  item
+app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => { 
   
     var obj = { 
         name: req.body.name, 
@@ -142,7 +171,11 @@ app.post('/Buysell', upload.single('image'), (req, res, next) => {
             contentType: 'image/png'
         },
 		category:req.body.category,
-		price:req.body.price
+		price:req.body.price,
+		author: {
+			id: req.user._id,
+			username: req.user.googleData.displayName
+    	}
     } 
     item.create(obj, (err, item) => { 
         if (err) { 
@@ -155,7 +188,7 @@ app.post('/Buysell', upload.single('image'), (req, res, next) => {
     }); 
 });
 
-//shows more abt one item
+//SHOW PAGE OF AN ITEM
 app.get('/Buysell/:id',function(req,res){
 	//finding item by  id 
 	item.findById(req.params.id,function(err,founditem){
@@ -176,7 +209,7 @@ app.get('/auth/google',
 
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/auth/google' }),
   function(req, res) {
     res.redirect('/Buysell');
   });
@@ -189,14 +222,28 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
+// logout route
+app.get("/logout", function(req, res){
+   req.logout();
+   res.redirect("/Buysell");
+});
+
+//middleware functions
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+		
+        return next();
+    }
+    res.redirect("/auth/google");
+}
+
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
 
-
 //SERVER
-app.listen(3000 || process.env.port,function(req,res){
+app.listen(8000 || process.env.port,function(req,res){
 	console.log("Server Has been Started");
 });
 
