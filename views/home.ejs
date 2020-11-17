@@ -7,6 +7,8 @@
         <link rel="shortcut icon" href="/stylesheets/assets/images/logo2.png" type="image/x-icon" />
         <meta name="description" content="" />
         <title>Home</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/assets/web/assets/mobirise-icons/mobirise-icons.css" />
         <link rel="stylesheet" href="/stylesheets/assets/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/stylesheets/assets/bootstrap/css/bootstrap-grid.min.css" />
@@ -22,7 +24,7 @@
             <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
                 <div class="navbar-brand">
                     <span class="navbar-caption-wrap">
-                        <a class="navbar-caption text-black display-2" href="/BuySell">
+                        <a class="navbar-caption text-black display-2" href="/BuySell" style="font-family: 'Crimson Text', serif;">
                             IIT Jammu's Shopping store
                         </a>
                     </span>
@@ -60,7 +62,7 @@
                 <div class="row justify-content-center">
                     <div class="media-container-column mbr-white col-md-10">
                         <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-5">IIT Jammu's Shopping store</h1>
-                        <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-1">
+                        <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-1" style="font-family: 'Crimson Text', serif;">
                             This is Our Store
                         </h3>
 
@@ -79,9 +81,23 @@
             <div>
                 <div class="mbr-shop" shop__showsidebar="">
                     <!-- Shop Gallery -->
+                    <div class="row d-block d-sm-none">
+                        <div class="col-xl-4">
+                            <form class="form-inline my-2 my-lg-0" method='get' action='/Buysell'>
+                                <div  class="form-group row">
+                                    <div class="col-md-8">
+                                        <input class="form-control ml-md-7" name="search" placeholder="Search" aria-label="Search">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-outline-success" type="submit" style="padding: 2px; width: 100px; height: 60px">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="row col-md-12">
 						
-                        <div class="wrapper-shop-items col-xl-9">
+                        <div class="wrapper-shop-items col-lg-8">
 							<div class='row'>
 								 <% if(noMatch !== null) { %>
 								 <h3><%= noMatch %></h3>
@@ -107,10 +123,15 @@
 								
 						</div>
                         <!-- sidebarr -->
-						<div class="col-xl-3">
+						<div class="col-lg-4 d-none d-sm-block">
 							<form class="form-inline my-2 my-lg-0" method='get' action='/Buysell'>
-						<input class="form-control mr-sm-2" name="search" placeholder="Search" aria-label="Search">
-						  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                <div  class="form-group row">
+                                    <div class="col-md-8">
+                        <input class="form-control ml-md-7" name="search" placeholder="Search" aria-label="Search">
+                                    </div>
+                                    <div class="col-md-4"><button class="btn btn-outline-success" type="submit" style="padding: 2px; width: 100px; height: 60px">Search</button>
+                                    </div>
+                                </div>
 							</form>
 						</div>
 						
