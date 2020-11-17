@@ -122,6 +122,10 @@ var upload = multer({ storage: storage });
 
 										//ROUTES
 
+//Landing Page
+app.get('/',function(req,res){
+	res.render('landingpage');
+});
 // ADDING A NEW ITEM
 app.get('/Buysell/new',isLoggedIn, function(req,res){
 	res.render('new');
