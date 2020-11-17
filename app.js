@@ -66,7 +66,7 @@ var User = mongoose.model('User' , UserSchema);
 passport.use(new GoogleStrategy({
     clientID: "552553742341-gcpnpa2oqpajueshbrtuverovukc7e37.apps.googleusercontent.com",
     clientSecret: "lzCurWvAeTNNvSGQskLqA14j",
-    callbackURL: "https://buysellapp01.run-ap-south1.goorm.io/auth/google/callback",
+    callbackURL: "https://csp-project-1-llfmm.run-ap-south1.goorm.io/auth/google/callback",
   },
     function(accessToken, refreshToken, profile, done) {
 
@@ -243,7 +243,7 @@ function escapeRegex(text) {
 
 
 //SERVER
-app.listen(8000 || process.env.port,function(req,res){
+app.listen(3000 || process.env.port,function(req,res){
 	console.log("Server Has been Started");
 });
 
