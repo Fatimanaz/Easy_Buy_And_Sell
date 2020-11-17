@@ -43,14 +43,14 @@
     <title>My profile</title>
   </head>
   <body>
-
+	
     <nav class="navbar navbar-light navbar-expand-sm fixed-top">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
       <div class="collapse navbar-collapse" id="Navbar">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link text" href="#" style="font-size: 1.2rem"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                    <li class="nav-item active"><a class="nav-link text" href="/Buysell" style="font-size: 1.2rem"><span class="fa fa-home fa-lg"></span> Home</a></li>
                 </ul>
             </div>
     </nav>
@@ -59,11 +59,11 @@
     <div class="container" style="margin-bottom: 100px">
       <div class="row justify-content-center">
         <div class="col-md-5">
-          <img src="./image_1.jpg" class="img-fluid ml-md-4 mt-md-4" alt="user image" style="border-radius: 50%">
+          <img src="<%= currentUser.googleData._json.picture %>" class="img-fluid ml-md-4 mt-md-4" alt="user image" style="border-radius: 50%">
         </div>
         <div class="col-md-5">
-          <h2 class="mt-md-5 ml-auto"> Karan Verma</h2>
-          <p class="lead" class="mt-md-5 ml-auto"> 9814932674 </p>
+          <h2 class="mt-md-5 ml-auto"> <%= currentUser.googleData.displayName %></h2>
+          <p class="lead" class="mt-md-5 ml-auto"> <%= currentUser.phoneNumber %> </p>
         </div>
       </div>
 

@@ -77,18 +77,19 @@ passport.use(new GoogleStrategy({
 			   }
 			   if(!user){
 				   user = new User({
-					   username : `${(profile.name.givenName || "")}`,
+					    name : `${(profile.name.givenName || "")}`,
 						googleData : profile,
 						userid : profile.emails[0].value ,
 						googleId : profile.id 
 				   })
+				   
 				   user.save(function(err) {
 						if (err) console.log(err);
 						return done(err, user);
 					});
 			   }
 			   else{
-
+					console.log(profile);
 				   return done(err, user);
 			   }
 
@@ -162,6 +163,9 @@ app.get('/Buysell',function (req, res){
 	}); 
 }); 
 
+app.get('/Buysell/myProfile' , isLoggedIn , function(req , res){
+	res.render('profile');
+})
 //Adding  new  item
 app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => { 
   
@@ -193,7 +197,7 @@ app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => {
 });
 
 //SHOW PAGE OF AN ITEM
-app.get('/Buysell/:id',function(req,res){
+app.get('/Buysell/item/:id',function(req,res){
 	//finding item by  id 
 	item.findById(req.params.id,function(err,founditem){
 		if(err){console.log('erorr');}
