@@ -44,9 +44,10 @@
                     <% } else { %>
 						<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 							<li class="nav-item">
-		 <a class="nav-link link text-black display-4" href="#">Signed In As <%= currentUser.googleData.displayName %></a>
+		 <a class="nav-link link text-black display-4" href="#">Signed In As <%= currentUser.googleData.displayName %>			</a>
 							</li>
 						</ul>
+<div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-info display-4" href="/BuySell/myprofile">Profile</a></div>
 <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-info display-4" href="/logout"> logout</a></div>
                     <% } %>
 					
@@ -67,7 +68,7 @@
                         </h3>
 
                         <div class="mbr-section-btn align-center pt-3">
-                            <a class="btn btn-md btn-info display-4" href="index.html#shop6-2">Shop now</a>
+                            <a class="btn btn-md btn-info display-4" href="#index">Shop now</a>
 							<a class="btn btn-md btn-primary display-4" href="/BuySell/new">Sell now</a>
                         </div>
                     </div>
@@ -112,7 +113,7 @@
 												<div class="card-body text-center">
 													<h4 class="card-title"><%= image.name %></h4>
 													<h5>₹<%= image.price %></h5>
-													<a href="/Buysell/<%=image._id %>" class="btn btn-info btn-sm">Buy Now</a>
+													<a href="/Buysell/item/<%=image._id %>" class="btn btn-info btn-sm">Buy Now</a>
 												</div>
 												
 										</div>
