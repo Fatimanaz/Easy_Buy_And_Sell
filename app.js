@@ -2,7 +2,7 @@ var express=require('express');
 var app=express();
 var bodyParser = require('body-parser');
 var mongoose=require('mongoose');
-
+var method_override=require('method-override');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 app.locals.moment = require('moment');
@@ -12,7 +12,7 @@ app.set('view engine','ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()) 
-
+app.use(method_override('_method'));
 app.use(require("express-session")({
     secret: "anythintg!",
     resave: false,
@@ -77,11 +77,12 @@ passport.use(new GoogleStrategy({
 			   else{
 					if(user){
 						console.log("already in db")
+						console.log(user);
 						return done(err, user);
 					}
 					else{
 						user = new User({
-						   username : `${(profile.name.givenName || "")}`,
+						    username : `${(profile.name.givenName || "")}`,
 							googleData : profile,
 							userid : profile.emails[0].value,
 							googleId : profile.id 
@@ -117,7 +118,6 @@ var storage = multer.diskStorage({
   
 var upload = multer({ storage: storage }); 
 							///IMAGE UPLOAD ENDED////
-
 
 
 										//ROUTES
@@ -160,6 +160,18 @@ app.get('/Buysell',function (req, res){
 		} 
 	}); 
 }); 
+//MY PROFILE
+app.get('/Buysell/myProfile' , isLoggedIn , function(req , res){
+	item.find({},function (err, items){ 
+		if (err) { 
+			console.log(err); 
+		} 
+		else { 
+			console.log(items);
+			res.render('profile', { items: items}); 
+		} 
+	}); 
+});
 
 //Adding  new  item
 app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => { 
@@ -191,8 +203,9 @@ app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => {
     }); 
 });
 
+
 //SHOW PAGE OF AN ITEM
-app.get('/Buysell/:id',function(req,res){
+app.get('/Buysell/item/:id',function(req,res){
 	//finding item by  id 
 	item.findById(req.params.id,function(err,founditem){
 		if(err){console.log('erorr');}
@@ -200,8 +213,52 @@ app.get('/Buysell/:id',function(req,res){
 			res.render('show',{founditem: founditem});
 		}
 	})
-	
-})
+});
+//edit item
+app.get('/Buysell/item/:id/edit',checkownership,function(req,res){
+	item.findById(req.params.id,function(err,founditem){
+		res.render('edit_item',{founditem:founditem});
+	});
+});
+//UPDATE ITEM 
+app.put('/Buysell/item/:id',checkownership,upload.single('image'),function(req, res, next){ 
+  
+    var obj = { 
+        name: req.body.name, 
+        desc: req.body.desc, 
+		contact: req.body.contact,
+		email: req.body.email,
+        img: { 
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
+            contentType: 'image/png'
+        },
+		category:req.body.category,
+		price:req.body.price,
+		author: {
+			id: req.user._id,
+			username: req.user.googleData.displayName
+    	}
+    } 
+    item.findByIdAndUpdate(req.params.id,obj,function(err, item){ 
+        if (err) { 
+            res.redirect('/Buysell');
+        } 
+        else { 
+            // item.save(); 
+            res.redirect('/Buysell/item/'+req.params.id); 
+        } 
+    }); 
+});
+//DELETE ITEM ROUTE
+app.delete('/Buysell/item/:id',checkownership,function(req,res){
+	item.findByIdAndDelete(req.params.id,function(err){
+		if(err){res.redirect('/Buysell');}
+		else{
+			res.redirect('/Buysell');
+		}
+	});		
+		
+});
 app.get('/auth/google',
   passport.authenticate('google', {
 			scope: [
@@ -231,7 +288,7 @@ app.get("/logout", function(req, res){
    res.redirect("/Buysell");
 });
 
-//middleware functions
+//MIDDLEWARE FUNCTIONS 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		
@@ -243,6 +300,30 @@ function isLoggedIn(req, res, next){
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+
+function checkownership(req,res,next){
+	if(req.isAuthenticated()){
+		item.findById(req.params.id,function(err,founditem){
+		if(err){
+			console.log(err);
+			res.redirect('back');
+		}
+		else{
+			if(founditem.author.id.equals(req.user._id)){
+				next();
+			}
+			else{
+				console.log("NOT a author")
+			}
+		}
+		
+		});
+	}
+	else{
+		res.redirect('/auth/google');
+	}	
+}
+//MIDDLEWARE FUNCTIONS  ENDED
 
 
 //SERVER

@@ -14,43 +14,38 @@
           height: 15vw;
           object-fit: cover;
       }
-
        body{
         padding-top: 100px;
         background: #FFF0F5
       }
-
       .navbar-light{
         background-color: #FF69B4;
       }
       .navbar{
         min-height: 70px;
       }
-
       .text{
         font-family: 'Lobster', cursive; 
       }
-
       .fotter{
         background-color: #FFB6C1;
         max-height: 70px;
         margin: 0px auto;
         padding: 20px 0px;
       }
-
     </style>
 
     <title>My profile</title>
   </head>
   <body>
-
+	
     <nav class="navbar navbar-light navbar-expand-sm fixed-top">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
       <div class="collapse navbar-collapse" id="Navbar">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link text" href="#" style="font-size: 1.2rem"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                    <li class="nav-item active"><a class="nav-link text" href="/Buysell" style="font-size: 1.2rem"><span class="fa fa-home fa-lg"></span> Home</a></li>
                 </ul>
             </div>
     </nav>
@@ -59,71 +54,40 @@
     <div class="container" style="margin-bottom: 100px">
       <div class="row justify-content-center">
         <div class="col-md-5">
-          <img src="./image_1.jpg" class="img-fluid ml-md-4 mt-md-4" alt="user image" style="border-radius: 50%">
+          <img src="<%= currentUser.googleData._json.picture %>" class="img-fluid ml-md-4 mt-md-4" alt="user image" style="border-radius: 50%">
         </div>
         <div class="col-md-5">
-          <h2 class="mt-md-5 ml-auto"> Karan Verma</h2>
-          <p class="lead" class="mt-md-5 ml-auto"> 9814932674 </p>
+          <h2 class="mt-md-5 ml-auto"> <%= currentUser.googleData.displayName %></h2>
+          <p class="lead" class="mt-md-5 ml-auto"> <%= currentUser.googleData._json.email %> </p>
         </div>
       </div>
-
-      <div class="row mt-3 justify-content-center">
-        <div class="col-md-4 mt-3">
-
-          <div class="card rounded">
-            <img class="card-img-top" src="./image_2.jpg" alt="Product Image">
-
-            <div class="card-body">
-              <h5 class="card-title">Wana update anything?</h5>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="col-md-4 mt-3">
-
-          <div class="card rounded">
-            <img class="card-img-top" src="./image_1.jpg" alt="Product Image">
-
-            <div class="card-body">
-              <h5 class="card-title">Wana update anything?</h5>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="col-md-4 mt-3">
-
-          <div class="card rounded">
-            <img class="card-img-top" src="./image_3.jpg" alt="Product Image">
-
-            <div class="card-body">
-              <h5 class="card-title">Wana update anything?</h5>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
+		<div class="wrapper-shop-items col-lg-8">
+							<div class='row'>
+								<% items.forEach(function(i) { %>
+								<% if(currentUser && i.author.id.equals(currentUser._id)){ %>
+									<div class="d-flex justify-content-around col-md-4">
+									<div class="p-2">
+										<div class="card" style="width: 14rem;"> 
+										<img class="card-img-top" src="data:image/<%=i.img.contentType%>;base64, 
+								 		<%=i.img.data.toString('base64')%>" alt="Card image cap">
+												<div class="card-body text-center">
+													<h4 class="card-title"><%= i.name %></h4>
+												</div>
+												<div class="btn-group" role="group" aria-label="Basic example">
+			<!-- 		EDIT AND DELETE BUTTON				 -->
+										<a href="/Buysell/item/<%=i._id%>/edit" style=width:100px>
+											<button class='btn btn-warning'>Edit</button>
+										</a>
+										<form method='post' action='/Buysell/item/<%=i._id%>?_method=DELETE'>
+												<button class='btn btn-danger'>Delete</button>
+										</form>	
+											  </div>
+										</div>
+									</div>
+								</div>
+								 <% } %>
+							</div>
+							<% }) %> 
 
     <footer class="fotter fixed-bottom">
       <div class="container">
