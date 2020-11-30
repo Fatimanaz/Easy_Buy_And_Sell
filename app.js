@@ -66,7 +66,7 @@ var User = mongoose.model('User' , UserSchema);
 passport.use(new GoogleStrategy({
     clientID: "552553742341-gcpnpa2oqpajueshbrtuverovukc7e37.apps.googleusercontent.com",
     clientSecret: "lzCurWvAeTNNvSGQskLqA14j",
-    callbackURL: "https://buysellapp01.run-ap-south1.goorm.io/auth/google/callback",
+    callbackURL: "https://csp290-gyijp.run-ap-south1.goorm.io/auth/google/callback",
   },
     function(accessToken, refreshToken, profile, done) {
 		if(profile._json.hd === "iitjammu.ac.in"){
@@ -206,11 +206,12 @@ app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => {
 
 //SHOW PAGE OF AN ITEM
 app.get('/Buysell/item/:id',function(req,res){
+	var ID = req.params.id;
 	//finding item by  id 
 	item.findById(req.params.id,function(err,founditem){
 		if(err){console.log('erorr');}
 		else{
-			res.render('show',{founditem: founditem});
+			res.render('show',{founditem: founditem,ID: ID});
 		}
 	})
 });
@@ -327,7 +328,7 @@ function checkownership(req,res,next){
 
 
 //SERVER
-app.listen(8000 || process.env.port,function(req,res){
+app.listen(3000 || process.env.port,function(req,res){
 	console.log("Server Has been Started");
 });
 
