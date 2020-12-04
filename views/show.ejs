@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	 <link rel="shortcut icon" href="/stylesheets/assets/images/logo2.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/f6ba9fa57d.js"></script>
 
@@ -62,7 +62,7 @@
 
     </style>
 
-    <title>Product Information</title>
+    <title>Product Info</title>
   </head>
   <body>
     
@@ -95,18 +95,19 @@
     		<div class="col-md-4">
     			<div class="card btm" style="width: 18rem;border-radius: 20px">
 				  <div class="card-body ">
-				    <h5 class="card-title">Product's Information</h5>
-					 <h5 class="card-subtitle">Seller Name <em><%= founditem.author.username%></em></h5><br>
-				    <h6 class="card-subtitle mb-2"><%= founditem.name %></h6>
-    				<i class="fa fa-rupee" style="font-size:24px;color:purple"><%= founditem.price %></i>
+				    <h3 class="card-title">Product Details</h3>
+					<h6 >Seller Name <em><%= founditem.author.username%></em></h6>
+					<h6 >Name <span style="font-size:17px;color:purple"><%= founditem.name %></span></h6>
+				    <h6>Category <span style="font-size:17px;color:purple"><%= founditem.category %></span></h6>
+    				<h6>Price ₹ <span style="font-size:17px;color:purple"><%= founditem.price %></span></h6>
 				  </div>
 				</div>
 				<div class="card" style="width: 18rem; border-radius: 20px">
 				  <div class="card-body">
-				    <h5 class="card-title">Seller's Information</h5>
+				    <h3 class="card-title">Seller Details</h3>
 					  Item Added <em><%= moment(founditem.createdAt).fromNow() %></em>
-				    <i class="fa fa-phone" style="font-size:20px;color:purple"> <%= founditem.contact %></i>
-				    <i class="fa fa-envelope" style="font-size:20px;color:purple"> <%= founditem.email %></i>
+				    <i class="fa fa-phone" style="font-size:17px;color:purple"> <%= founditem.contact %></i>
+				    <i class="fa fa-envelope" style="font-size:17px;color:purple"> <%= founditem.email %></i>
 				  </div>
 				</div>
     		</div>

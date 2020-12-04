@@ -77,7 +77,7 @@ passport.use(new GoogleStrategy({
 			   else{
 					if(user){
 						console.log("already in db")
-						console.log(user);
+						// console.log(user);
 						return done(err, user);
 					}
 					else{
@@ -150,7 +150,7 @@ app.get('/Buysell',function (req, res){
 		} 
 	}); 
     }
-// 	Normal rendering 
+	// 	Normal rendering 
 	item.find({},function (err, items){ 
 		if (err) { 
 			console.log(err); 
@@ -259,6 +259,7 @@ app.delete('/Buysell/item/:id',checkownership,function(req,res){
 	});		
 		
 });
+										//GOOGLE AUTHENTICATION
 app.get('/auth/google',
   passport.authenticate('google', {
 			scope: [
@@ -287,8 +288,9 @@ app.get("/logout", function(req, res){
    req.logout();
    res.redirect("/Buysell");
 });
+										//GOOGLE AUTHENTICATION ENDED
 
-//MIDDLEWARE FUNCTIONS 
+											//MIDDLEWARE FUNCTIONS 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		
@@ -323,7 +325,7 @@ function checkownership(req,res,next){
 		res.redirect('/auth/google');
 	}	
 }
-//MIDDLEWARE FUNCTIONS  ENDED
+										//MIDDLEWARE FUNCTIONS  ENDED
 
 
 //SERVER

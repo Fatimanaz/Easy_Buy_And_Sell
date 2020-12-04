@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	 <link rel="shortcut icon" href="/stylesheets/assets/images/logo2.png" type="image/x-icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/f6ba9fa57d.js"></script>
@@ -61,7 +61,8 @@
           <p class="lead" class="mt-md-5 ml-auto"> <%= currentUser.googleData._json.email %> </p>
         </div>
       </div>
-		<div class="wrapper-shop-items col-lg-8">
+	
+	    <div class="wrapper-shop-items col-lg-8">
 							<div class='row'>
 								<% items.forEach(function(i) { %>
 								<% if(currentUser && i.author.id.equals(currentUser._id)){ %>
@@ -75,20 +76,26 @@
 												</div>
 												<div class="btn-group" role="group" aria-label="Basic example">
 			<!-- 		EDIT AND DELETE BUTTON				 -->
-										<a href="/Buysell/item/<%=i._id%>/edit" style=width:100px>
+										<a href="/Buysell/item/<%=i._id%>/edit" style=padding-left:20px;padding-right:20px>
 											<button class='btn btn-warning'>Edit</button>
 										</a>
 										<form method='post' action='/Buysell/item/<%=i._id%>?_method=DELETE'>
 												<button class='btn btn-danger'>Delete</button>
 										</form>	
 											  </div>
+											<% } %>
 										</div>
+									
 									</div>
+										 
 								</div>
-								 <% } %>
-							</div>
+								
 							<% }) %> 
-
+							</div>
+							
+						</div>
+					  </div>
+		
     <footer class="fotter fixed-bottom">
       <div class="container">
         <div class="row justify-content-center">             
