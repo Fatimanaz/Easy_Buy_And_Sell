@@ -25,8 +25,8 @@
       }
       body{
         padding-top: 100px;
-        background: var(--black);
-        color: var(--LightPink);
+        background: #FFF8DC;
+        color: #374B73;
       }
       .navbar-light{
         background-color: transparent;
@@ -44,19 +44,19 @@
 	  #Theme_change_button_dark{
 			cursor: pointer;
 		    transition: 0.5s;
-			display: none;
 		}
 		#Theme_change_button_light{
 			cursor: pointer;
 		    transition: 0.5s;
+			display: none;
 		}
       .text{
          font-family: 'Lobster', cursive; 
       }
 		
 	  .light_theme{
-        background: #FFF8DC;
-        color: #374B73;
+        background: var(--black) ;
+        color: var(--LightPink);
       }
       .dark{
         background-color: #FFB6C1;
@@ -68,7 +68,7 @@
         color: var(--LightThemePink);
       }
       .card_color{
-        background-color:  var(--black);
+        background-color:  var(--LightThemePink);
       }
     </style>
 
@@ -80,12 +80,12 @@
       <button class="navbar-toggler dark" id="Dropdownicon" type="button" data-toggle="collapse" data-target="#Navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-		<a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_dark.jpeg" height="70" width="70" style="border-radius: 50%"></a>
+		<a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_light.jpeg" height="70" width="70" style="border-radius: 50%"></a>
       <div class="collapse navbar-collapse" id="Navbar">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/Buysell" style="font-size: 1.5rem;">
-              <span class="fa fa-home fa-lg icon_color_white" id="icon"></span>
+              <span class="fa fa-home fa-lg icon_color_black" id="icon"></span>
             </a>
           </li>
         </ul>
@@ -109,7 +109,7 @@
 		<% items.forEach(function(i) { %>
 		<% if(currentUser && i.author.id.equals(currentUser._id)){ %>
 		<div class="mt-3 mb-3 col-md-4 justify-content-around d-flex">
-			<div class="card card_color" style="border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--grey) , 3px 3px 15px var(--black); cursor: pointer;"> 
+			<div class="card card_color" style="border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--LightPink) , 3px 3px 15px var(--LightThemePink); cursor: pointer;"> 
 				<img class="card-img-top" style="border-radius: 25px 0 0 0;" src="data:image/<%=i.img.contentType%>;base64, 
 				<%=i.img.data.toString('base64')%>" alt="Card image cap">
 				<div class="card-body">
@@ -145,7 +145,8 @@
 	  var CARD = document.getElementsByClassName("card");
 	   themechanger_light.addEventListener("click", function() {
         b.classList.toggle("light_theme");
-        icon.classList.toggle("icon_color_black");
+		icon.classList.remove("icon_color_white");
+        icon.classList.add("icon_color_black");
 		themechanger_light.style.display ="none";
 		themechanger_dark.style.display ="block";
 		document.getElementById("logo").src = "/stylesheets/logo_light.jpeg";
@@ -159,7 +160,8 @@
 		
 		themechanger_dark.addEventListener("click", function() {
         b.classList.toggle("light_theme");
-        icon.classList.toggle("icon_color_black");
+        icon.classList.add("icon_color_white");
+        icon.classList.remove("icon_color_black");
 		themechanger_dark.style.display ="none";
 		themechanger_light.style.display ="block";
 		document.getElementById("logo").src = "/stylesheets/logo_dark.jpeg";

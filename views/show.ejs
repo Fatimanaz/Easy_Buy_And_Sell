@@ -26,8 +26,8 @@
       }
 		
 	  .light_theme{
-        background: #FFF8DC;
-        color: white;
+        background: var(--black);
+        color: var(--LightPink);
       }
       .dark{
         background-color: #FFB6C1;
@@ -35,8 +35,8 @@
 
     	 body{
         padding-top: 120px;
-        background: var(--black);
-        color: var(--LightPink);
+        background: #FFF8DC;
+        color: white;
       }
 
     	.navbar-light{
@@ -94,11 +94,11 @@
 		#Theme_change_button_dark{
 			cursor: pointer;
 		    transition: 0.5s;
-			display: none;
 		}
 		#Theme_change_button_light{
 			cursor: pointer;
 		    transition: 0.5s;
+			display: none;
 		}
 		
 
@@ -226,12 +226,12 @@
       <button class="navbar-toggler dark" id="Dropdownicon" type="button" data-toggle="collapse" data-target="#Navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-		<a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_dark.jpeg" height="70" width="70" style="border-radius: 50%;"></a>
+		<a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_light.jpeg" height="70" width="70" style="border-radius: 50%;"></a>
       <div class="collapse navbar-collapse" id="Navbar">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/Buysell" style="font-size: 1.5rem;">
-              <span class="fa fa-home fa-lg icon_color_white" id="icon"></span>
+              <span class="fa fa-home fa-lg icon_color_black" id="icon"></span>
             </a>
           </li>
         </ul>
@@ -269,7 +269,7 @@
     		</div>
 
     		<div class="col-md-4 ml-md-4 info">
-    			<div class="card btm" style=" background-color: var(--black); width: 18rem; border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--grey) , 3px 3px 15px var(--black)">
+    			<div class="card btm" style=" background-color: var(--LightThemePink); width: 18rem; border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--LightPink) , 3px 3px 15px var(--LightThemePink)">
 				  <div class="card-body">
 				    <h3 class="card-title pop">Product Details</h3>
 					<h6 class="pop">Seller Name <em><%= founditem.author.username%></em></h6>
@@ -278,7 +278,7 @@
     				<h6 class="pop">Price ₹ <span style="font-size:17px;color:purple"><%= founditem.price %></span></h6>
 				  </div>
 				</div>
-				<div class="card" style=" background-color: var(--black); width: 18rem;border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--grey) , 3px 3px 15px var(--black)">
+				<div class="card" style=" background-color: var(--LightThemePink); width: 18rem;border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--LightPink) , 3px 3px 15px var(--LightThemePink)">
 				  <div class="card-body pop">
 				    <h3 class="card-title pop">Seller Details</h3>
 					  Item Added <em><%= moment(founditem.createdAt).fromNow() %></em><br>
@@ -295,7 +295,7 @@
 		
     	<div class="row justify-content-center">
     		<div class="col-md-9">
-    			<div class="card" style="background-color: var(--black); margin-bottom: 100px;margin-top: 20px; border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--grey) , 3px 3px 15px var(--black)">
+    			<div class="card" style="background-color: var(--LightThemePink); margin-bottom: 100px;margin-top: 20px; border-radius: 25px 0 25px 0; box-shadow: -5px -5px 10px var(--LightPink) , 3px 3px 15px var(--LightThemePink)">
 					
 		
 				  <div class="card-body">
@@ -352,7 +352,8 @@
 	  var CARD = document.getElementsByClassName("card");
       themechanger_light.addEventListener("click", function() {
         b.classList.toggle("light_theme");
-        icon.classList.toggle("icon_color_black");
+        icon.classList.remove("icon_color_white");
+        icon.classList.add("icon_color_black");
 		themechanger_light.style.display ="none";
 		themechanger_dark.style.display ="block";
 		document.getElementById("logo").src = "/stylesheets/logo_light.jpeg";
@@ -366,7 +367,8 @@
 	
 	themechanger_dark.addEventListener("click", function() {
         b.classList.toggle("light_theme");
-        icon.classList.toggle("icon_color_black");
+        icon.classList.add("icon_color_white");
+        icon.classList.remove("icon_color_black");
 		themechanger_dark.style.display ="none";
 		themechanger_light.style.display ="block";
 		document.getElementById("logo").src = "/stylesheets/logo_dark.jpeg";

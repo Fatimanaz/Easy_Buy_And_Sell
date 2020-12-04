@@ -44,8 +44,8 @@
       }
 	  body{
         padding-top: 120px;
-        background: var(--black);
-        color: var(--LightPink);
+        background: #FFF8DC;
+        color: #374B73;
       }
 
     	.navbar-light{
@@ -65,15 +65,15 @@
 		#Theme_change_button_dark{
 			cursor: pointer;
 		    transition: 0.5s;
-			display: none;
 		}
 		#Theme_change_button_light{
 			cursor: pointer;
 		    transition: 0.5s;
+			display: none;
 		}
 		.light_theme{
-        background: #FFF8DC;
-        color: #374B73;
+        background: var(--black);
+        color: var(--LightPink);
       }
       .dark{
         background-color: #FFB6C1;
@@ -87,6 +87,10 @@
 	  .myclass::-webkit-input-placeholder {
 		color: #374B73;
 	 }
+	
+		.form-control{
+			background-color: var(--lightgrey);
+		}
     </style>
   </head>
   <body>
@@ -95,13 +99,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 		
-	  <a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_dark.jpeg" height="70" width="70" style="border-radius: 50%"></a>	
+	  <a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_light.jpeg" height="70" width="70" style="border-radius: 50%"></a>	
 	
       <div class="collapse navbar-collapse" id="Navbar">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="/Buysell" style="font-size: 1.5rem;">
-              <span class="fa fa-home fa-lg icon_color_white" id="icon"></span>
+              <span class="fa fa-home fa-lg icon_color_black" id="icon"></span>
             </a>
           </li>
         </ul>
@@ -122,35 +126,35 @@
             <div class="form-group row">
               <label class="col-md-2 col-form-label" for="ItemName">Item Name</label>
               <div class="col-md-10">
-                <input type="text" class="form-control" id="ItemName" placeholder="Item Name" name="name" required>
+                <input type="text" class="form-control myclass" id="ItemName" placeholder="Item Name" name="name" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-md-2 col-form-label" for="BasicDescription">Description</label>
               <div class="col-md-10">
-                <input type="text" class="form-control" id="BasicDescription" placeholder="Basic Description" name="desc" required>
+                <input type="text" class="form-control myclass" id="BasicDescription" placeholder="Basic Description" name="desc" required>
               </div>
             </div>
 
             <div class="form-group row">
               <label for="telnum" class="col-12 col-md-2 col-form-label">Contact</label>
               <div class="col-md-10">
-                <input type="tel" class="form-control" id="telnum" name="contact" placeholder="Mobile number">
+                <input type="tel" class="form-control myclass" id="telnum" name="contact" placeholder="Mobile number">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="emailid" class="col-md-2 col-form-label">Email</label>
               <div class="col-md-10">
-                <input type="email" class="form-control" id="emailid" name="email" placeholder="Email">
+                <input type="email" class="form-control myclass" id="emailid" name="email" placeholder="Email">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="image" class="col-md-2 col-form-label">Upload Photo</label>
               <div class="col-md-10">
-                <input type="file" class="form-control" id="img" name="image" accept="image/*" required>
+                <input type="file" class="form-control myclass" id="img" name="image" accept="image/*" required>
               </div>
             </div>
 			
@@ -167,7 +171,7 @@
             <div class="form-group row">
               <label for="category" class="col-md-2 col-form-label">Choose category</label>
               <div class="col-md-10">
-                <select  class='form-control'name="category" id="category">
+                <select  class='form-control myclass'name="category" id="category">
                   <option value="electronics">Electronics</option>
                   <option value="food">Food</option>
                   <option value="Daily-use">Daily-use</option>
@@ -183,7 +187,7 @@
             <div class="form-group row">
               <label for="price" class="col-md-2 col-form-label">Set Price</label>
               <div class="col-md-10">
-                <input type="number" class="form-control" id="price" name="price" placeholder="In Ruppees" min="0" required>
+                <input type="number" class="form-control myclass" id="price" name="price" placeholder="In Ruppees" min="0" required>
               </div>
             </div>
 
@@ -211,14 +215,14 @@
 		  var INPUTS = document.getElementsByClassName("form-control");
 		   themechanger_light.addEventListener("click", function() {
 			b.classList.toggle("light_theme");
-			icon.classList.toggle("icon_color_black");
+			icon.classList.remove("icon_color_white");
+        	icon.classList.add("icon_color_black");
 			themechanger_light.style.display ="none";
 			themechanger_dark.style.display ="block";
 			document.getElementById("logo").src = "/stylesheets/logo_light.jpeg";
 			var i;
 			for(i = 0; i<INPUTS.length; i++)
 				{
-					INPUTS[i].style.backgroundColor = "var(--light_grey)";
 					INPUTS[i].style.color = "var(--black)";
 					INPUTS[i].classList.add("myclass");
 				}
@@ -226,14 +230,14 @@
 
 			themechanger_dark.addEventListener("click", function() {
 			b.classList.toggle("light_theme");
-			icon.classList.toggle("icon_color_black");
+			icon.classList.add("icon_color_white");
+        	icon.classList.remove("icon_color_black");
 			themechanger_dark.style.display ="none";
 			themechanger_light.style.display ="block";
 			document.getElementById("logo").src = "/stylesheets/logo_dark.jpeg";
 			var i;
 			for(i = 0; i<INPUTS.length; i++)
 				{
-					INPUTS[i].style.backgroundColor = "white";
 					INPUTS[i].style.color = "var(--black)";
 					INPUTS[i].classList.remove("myclass");
 				}
