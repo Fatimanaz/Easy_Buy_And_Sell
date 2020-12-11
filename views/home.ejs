@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
         <link rel="shortcut icon" href="/stylesheets/assets/images/logo2.png" type="image/x-icon" />
         <meta name="description" content="" />
-        <title>Home</title>
+        <title>Easy Buy | Home</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/assets/web/assets/mobirise-icons/mobirise-icons.css" />
@@ -18,15 +18,63 @@
         <link rel="stylesheet" href="/stylesheets/assets/theme/css/style.css" />
         <link rel="stylesheet" href="/stylesheets/assets/gallery/style.css" />
         <link rel="stylesheet" href="/stylesheets/assets/mobirise/css/mbr-additional.css" type="text/css" />
+		<style>
+			
+			:root{
+				--white : #F7F7F7;
+				--light_grey : #747A72;
+				--grey : #575B56 ;
+				--dark_grey :#333834 ;
+				--black : #1B231B ;
+				--LightPink: #DD8A8A;
+				--LightThemePink: #ffa0a4;
+			  }
+			
+			.dark_theme{
+				background: var(--black);
+				color: var(--LightPink);
+			  }
+			#Theme_change_button_dark{
+				cursor: pointer;
+				transition: 0.5s;
+			}
+			.Highlighter_dark{
+				box-shadow: 5px 5px 30px black;
+			}
+			#Theme_change_button_light{
+				cursor: pointer;
+				transition: 0.5s;
+				display: none;
+			}
+			.Highlighter_light{
+				box-shadow: 3px 3px 30px yellow;
+			}
+			.Transp{
+				background-color: Transparent;
+				bacdrop-filter: blur(72px);
+			}
+		</style>
     </head>
     <body>
         <section class="menu cid-rbb1P7Oggj" once="menu" id="menu1-5" data-sortbtn="btn-primary">
-            <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+            <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg"  id="NAVBAR">
                 <div class="navbar-brand">
                     <span class="navbar-caption-wrap">
                         <a class="navbar-caption text-black display-2" href="/BuySell" style="font-family: 'Crimson Text', serif;">
-                            IIT Jammu's Shopping store
+                           <img id ="logo" src="/stylesheets/logo_light.jpeg" height="70" width="70" style="border-radius: 50%;">
                         </a>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"style='padding-left:40px;padding-top:20px'>
+							<li class="nav-item">
+		 <a class='nav-link link text-black display-4' href="/Buysell">Shop Now</a>
+							</li>
+							<li class="nav-item">
+		 <a class='nav-link link text-black display-4' href="/Buysell/new">Sell Now</a>
+							</li>
+			</ul>
+						</div>
+			
+						
                     </span>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,22 +101,31 @@
 					
                     
                 </div>
+				<img id="Theme_change_button_light" height="38" width="38" src="https://img.icons8.com/doodle/48/000000/sun--v1.png"/>
+				<img id="Theme_change_button_dark" height="30" width="30" style="border-raius: 50%;" src="https://img.icons8.com/ios-filled/50/000000/moon-man.png"/>
             </nav>
+			<%if(message && message.length>0){%>
+			<div class="alert alert-info text-center" role="alert"><h5><%=message%></h5></div>
+			<%}else{%>
+				<%if(success_message && success_message.length>0){%>
+			<div class="alert alert-success text-center" role="alert"><h5><%=success_message%></h5></div>
+			<%}%>
+			<%}%>
         </section>
-
+		
         <section class="header3 cid-rbb39CwPuR" id="header3-6" data-sortbtn="btn-primary">
             <div class="mbr-overlay" style="opacity: 0.7;"></div>
 
             <div class="container align-left">
                 <div class="row justify-content-center">
                     <div class="media-container-column mbr-white col-md-10">
-                        <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-5">IIT Jammu's Shopping store</h1>
+                        <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-5">Easy Buy</h1>
                         <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-1" style="font-family: 'Crimson Text', serif;">
                             This is Our Store
                         </h3>
 
                         <div class="mbr-section-btn align-center pt-3">
-                            <a class="btn btn-md btn-info display-4" href="index.html#shop6-2">Shop now</a>
+                            <a class="btn btn-md btn-info display-4" href="#products_section">Shop now</a>
 							<a class="btn btn-md btn-primary display-4" href="/BuySell/new">Sell now</a>
                         </div>
                     </div>
@@ -78,7 +135,7 @@
 <!-- <h4>
 	
 		</h4>	 -->
-       <section class="mbr-gallery cid-rbaMy1tJOl" once="shops" id="shop6-2" data-sortbtn="btn-primary">
+       <section class="mbr-gallery cid-rbaMy1tJOl"id="products_section" once="shops" id="shop6-2" data-sortbtn="btn-primary">
             <div>
                 <div class="mbr-shop" shop__showsidebar="">
                     <!-- Shop Gallery -->
@@ -113,7 +170,7 @@
 												<div class="card-body text-center">
 													<h4 class="card-title"><%= image.name %></h4>
 													<h5>₹<%= image.price %></h5>
-													<a href="/Buysell/item/<%=image._id %>" class="btn btn-info btn-sm">Buy Now</a>
+													<a href="/Buysell/item/<%=image._id %>" class="btn btn-info btn-sm">More Info</a>
 												</div>
 												
 										</div>
@@ -141,6 +198,57 @@
                 </div>
             </div>
       </section> 
+				<script>
+			    var b = document.body;
+			    var bg = document.getElementById("products_section");
+			    var NavBar = document.getElementById("NAVBAR");
+			    var themechanger_dark = document.getElementById("Theme_change_button_dark");
+			    var themechanger_light = document.getElementById("Theme_change_button_light");
+			    var CARD = document.getElementsByClassName("card");
+			    themechanger_dark.addEventListener("click", function() {
+					b.classList.add("dark_theme");
+					bg.style.backgroundColor = "var(--black)";
+					NavBar.classList.add("Transp");
+					themechanger_dark.style.display ="none";
+					themechanger_light.style.display ="block";
+					document.getElementById("logo").src = "/stylesheets/logo_dark.jpeg";
+					var i;
+					for(i = 0; i<CARD.length; i++)
+						{
+							CARD[i].style.backgroundColor = "var(--black)";
+							CARD[i].style.boxShadow = "-5px -5px 10px var(--grey) , 3px 3px 15px var(--black)";
+						}
+				  })
+			
+			    themechanger_light.addEventListener("click", function() {
+					b.classList.remove("dark_theme");
+					bg.style.backgroundColor = "transparent";
+					NavBar.classList.remove("Transp");
+					themechanger_light.style.display ="none";
+					themechanger_dark.style.display ="block";
+					document.getElementById("logo").src = "/stylesheets/logo_light.jpeg";
+					var i;
+					for(i = 0; i<CARD.length; i++)
+						{
+							CARD[i].style.backgroundColor = "transparent";
+							CARD[i].style.boxShadow = "none";
+						}
+				  })    
+			
+				themechanger_dark.addEventListener("mouseenter", (e)=>{
+					themechanger_dark.classList.add("Highlighter_dark");
+				});
+				themechanger_dark.addEventListener("mouseleave", (e)=>{
+					themechanger_dark.classList.toggle("Highlighter_dark");
+				});
+			    themechanger_light.addEventListener("mouseenter", (e)=>{
+					themechanger_light.classList.add("Highlighter_light");
+				});
+				themechanger_light.addEventListener("mouseleave", (e)=>{
+					themechanger_light.classList.toggle("Highlighter_light");
+				});
+		</script>
+
 		
         <script src="/stylesheets/assets/web/assets/jquery/jquery.min.js"></script>
         <script src="/stylesheets/assets/popper/popper.min.js"></script>

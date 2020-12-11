@@ -4,11 +4,13 @@ var bodyParser = require('body-parser');
 var mongoose=require('mongoose');
 var method_override=require('method-override');
 var passport = require('passport');
+var flash=require('connect-flash');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 app.locals.moment = require('moment');
 
 //Config
 app.set('view engine','ejs');
+app.use(flash());
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()) 
@@ -23,6 +25,8 @@ app.use(passport.session());
 
 app.use(function(req, res, next){
    res.locals.currentUser = req.user;
+   res.locals.message=req.flash('error');
+   res.locals.success_message=req.flash('success');
    next();
 });
 							//DATABASE and SCHEMA SETUP
@@ -144,9 +148,9 @@ app.get('/Buysell',function (req, res){
 		} 
 		else { 
 			if(items.length==0) {
-                   noMatch = "No Items match that query, please try again.";
+                   noMatch = "No Items Found";
             }
-			res.render('home', { items: items, noMatch:noMatch }); 
+			res.render('home', { items: items, noMatch:noMatch}); 
 		} 
 	}); 
     }
@@ -205,12 +209,13 @@ app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => {
 
 
 //SHOW PAGE OF AN ITEM
-app.get('/Buysell/item/:id',function(req,res){
+app.get('/Buysell/item/:id',isLoggedIn,function(req,res){
 	//finding item by  id 
+	var ID = req.params.id;
 	item.findById(req.params.id,function(err,founditem){
 		if(err){console.log('erorr');}
 		else{
-			res.render('show',{founditem: founditem});
+			res.render('show',{founditem: founditem,ID: ID});
 		}
 	})
 });
@@ -254,7 +259,7 @@ app.delete('/Buysell/item/:id',checkownership,function(req,res){
 	item.findByIdAndDelete(req.params.id,function(err){
 		if(err){res.redirect('/Buysell');}
 		else{
-			res.redirect('/Buysell');
+			res.redirect('/BuySell/myprofile');
 		}
 	});		
 		
@@ -272,6 +277,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/auth/google' }),
   function(req, res) {
+	 req.flash('success','You are Succesfully Logged In ')
     res.redirect('/Buysell');
   });
 
@@ -286,10 +292,14 @@ passport.deserializeUser(function(user, done) {
 // logout route
 app.get("/logout", function(req, res){
    req.logout();
+   req.flash('error','Logged out succesfully')
    res.redirect("/Buysell");
 });
 										//GOOGLE AUTHENTICATION ENDED
-
+// *route
+app.get('*',function(req,res){
+	res.redirect('/Buysell')
+})
 											//MIDDLEWARE FUNCTIONS 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
