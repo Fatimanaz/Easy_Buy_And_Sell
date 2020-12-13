@@ -9,6 +9,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 app.locals.moment = require('moment');
 
 //Config
+
 app.set('view engine','ejs');
 app.use(flash());
 app.use(express.static('public'));
@@ -202,6 +203,7 @@ app.post('/Buysell',isLoggedIn, upload.single('image'), (req, res, next) => {
         } 
         else { 
             // item.save(); 
+			req.flash('success','Product Has been Added Successfully')
             res.redirect('/Buysell'); 
         } 
     }); 
@@ -250,7 +252,8 @@ app.put('/Buysell/item/:id',checkownership,upload.single('image'),function(req, 
         } 
         else { 
             // item.save(); 
-            res.redirect('/Buysell/item/'+req.params.id); 
+			req.flash('success','Product Has been Updated Successfully')
+            res.redirect('/Buysell/myProfile'); 
         } 
     }); 
 });
@@ -259,6 +262,7 @@ app.delete('/Buysell/item/:id',checkownership,function(req,res){
 	item.findByIdAndDelete(req.params.id,function(err){
 		if(err){res.redirect('/Buysell');}
 		else{
+			req.flash('error','Product Has been Deleted Successfully')
 			res.redirect('/BuySell/myprofile');
 		}
 	});		
@@ -277,7 +281,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/auth/google' }),
   function(req, res) {
-	 req.flash('success','You are Succesfully Logged In ')
+	req.flash('success','Welcome to Easy Buy ')
     res.redirect('/Buysell');
   });
 
@@ -298,6 +302,7 @@ app.get("/logout", function(req, res){
 										//GOOGLE AUTHENTICATION ENDED
 // *route
 app.get('*',function(req,res){
+	req.flash('error','Please Enter the Correct URL')
 	res.redirect('/Buysell')
 })
 											//MIDDLEWARE FUNCTIONS 

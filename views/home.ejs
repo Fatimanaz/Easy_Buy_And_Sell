@@ -63,7 +63,7 @@
                         <a class="navbar-caption text-black display-2" href="/BuySell" style="font-family: 'Crimson Text', serif;">
                            <img id ="logo" src="/stylesheets/logo_light.jpeg" height="70" width="70" style="border-radius: 50%;">
                         </a>
-						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<!-- <div class="d-sm-none d-md-block" id="navbarSupportedContent">
 						<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"style='padding-left:40px;padding-top:20px'>
 							<li class="nav-item">
 		 <a class='nav-link link text-black display-4' href="/Buysell">Shop Now</a>
@@ -72,7 +72,7 @@
 		 <a class='nav-link link text-black display-4' href="/Buysell/new">Sell Now</a>
 							</li>
 			</ul>
-						</div>
+						</div> -->
 			
 						
                     </span>
@@ -85,8 +85,7 @@
                         <span></span>
                     </div>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">  
 					 <% if(!currentUser){ %>
 <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-info display-4" href="/auth/google"> Sign in with Google</a></div>
                     <% } else { %>
@@ -103,15 +102,18 @@
                 </div>
 				<img id="Theme_change_button_light" height="38" width="38" src="https://img.icons8.com/doodle/48/000000/sun--v1.png"/>
 				<img id="Theme_change_button_dark" height="30" width="30" style="border-raius: 50%;" src="https://img.icons8.com/ios-filled/50/000000/moon-man.png"/>
-            </nav>
-			<%if(message && message.length>0){%>
+            </nav>			
+        </section>
+		<div>
+				<%if(message && message.length>0){%>
 			<div class="alert alert-info text-center" role="alert"><h5><%=message%></h5></div>
 			<%}else{%>
 				<%if(success_message && success_message.length>0){%>
 			<div class="alert alert-success text-center" role="alert"><h5><%=success_message%></h5></div>
 			<%}%>
 			<%}%>
-        </section>
+				
+		</div>
 		
         <section class="header3 cid-rbb39CwPuR" id="header3-6" data-sortbtn="btn-primary">
             <div class="mbr-overlay" style="opacity: 0.7;"></div>
@@ -246,10 +248,8 @@
 				});
 				themechanger_light.addEventListener("mouseleave", (e)=>{
 					themechanger_light.classList.toggle("Highlighter_light");
-				});
+				});							
 		</script>
-
-		
         <script src="/stylesheets/assets/web/assets/jquery/jquery.min.js"></script>
         <script src="/stylesheets/assets/popper/popper.min.js"></script>
         <script src="/stylesheets/assets/bootstrap/js/bootstrap.min.js"></script>

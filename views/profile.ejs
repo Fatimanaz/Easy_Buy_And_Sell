@@ -93,7 +93,19 @@
             </div>
 		<img id="Theme_change_button_light" height="38" width="38" src="https://img.icons8.com/doodle/48/000000/sun--v1.png"/>
 	 <img id="Theme_change_button_dark" height="30" width="30" src="https://img.icons8.com/ios-filled/50/000000/moon-man.png"/>
+		
+
     </nav>
+	  <div class='container'>
+		  <%if(message && message.length>0){%>
+			<div class="alert alert-success text-center" role="alert"><h5><%=message%></h5></div>
+			<%}else{%>
+				<%if(success_message && success_message.length>0){%>
+			<div class="alert alert-danger text-center" role="alert"><h5><%=success_message%></h5></div>
+			<%}%>
+			<%}%>
+			
+	  </div>
 
    <div class="container">
       <div class="row justify-content-center">
