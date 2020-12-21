@@ -69,12 +69,12 @@ var UserSchema = new Schema({
 });
 var User = mongoose.model('User' , UserSchema);
 passport.use(new GoogleStrategy({
-    clientID: "552553742341-gcpnpa2oqpajueshbrtuverovukc7e37.apps.googleusercontent.com",
-    clientSecret: "lzCurWvAeTNNvSGQskLqA14j",
-    callbackURL: "https://buysellapp01.run-ap-south1.goorm.io/auth/google/callback",
+    clientID: "",
+    clientSecret: "",
+    callbackURL: "https://localhost:8000/auth/google/callback",
   },
     function(accessToken, refreshToken, profile, done) {
-		if(profile._json.hd === "iitjammu.ac.in"){
+		
 			User.findOne({ googleId: profile.id }, function (err, user) {
 			   if(err){
 				   return done(err);
@@ -105,7 +105,7 @@ passport.use(new GoogleStrategy({
 			 return done();
 		}
         
-  }
+  
 ));
 							///IMAGE UPLOAD////
 var fs = require('fs'); 
