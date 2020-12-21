@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link rel="shortcut icon" href="/stylesheets/assets/images/logo2.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"  href="/stylesheets/styles.css">
+    <script src="https://use.fontawesome.com/f6ba9fa57d.js"></script>
+
+    <title>Easy Buy</title>
+	  <style type="text/css">
+	  :root{
+        --white : #F7F7F7;
+        --light_grey : #747A72;
+        --grey : #575B56 ;
+        --dark_grey :#333834 ;
+        --black : #1B231B ;
+        --LightPink: #DD8A8A;
+		--LightThemePink: #ffa0a4;
+      }
+      .imageContainer{
+        display: none;
+        width: auto;
+        min-height: 100px;
+      }
+      .imagePreview{
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .cancelBtnContainer{
+        position: absolute;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background-color: #8A2BE2;
+      }
+	  body{
+        padding-top: 120px;
+        background: #FFF8DC;
+        color: #374B73;
+      }
+    	.navbar-light{
+        background: transparent;
+      }
+      .navbar{
+        min-height: 70px;
+		backdrop-filter: blur(72px);
+      }
+	  
+		.Highlighter_light{
+			box-shadow: 3px 3px 30px yellow;
+		}
+		.Highlighter_dark{
+			box-shadow: 5px 5px 30px black;
+		}
+		#Theme_change_button_dark{
+			cursor: pointer;
+		    transition: 0.5s;
+		}
+		#Theme_change_button_light{
+			cursor: pointer;
+		    transition: 0.5s;
+			display: none;
+		}
+		.light_theme{
+        background: var(--black);
+        color: var(--LightPink);
+      }
+      .dark{
+        background-color: #FFB6C1;
+      }
+      .icon_color_white{
+        color: var(--LightPink);
+      }
+      .icon_color_black{
+        color: var(--LightThemePink);
+      }
+	  .myclass::-webkit-input-placeholder {
+		color: #374B73;
+	 }
+	
+		.form-control{
+			background-color: var(--lightgrey);
+		}
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-light navbar-expand-sm fixed-top">
+      <button class="navbar-toggler dark" id="Dropdownicon" type="button" data-toggle="collapse" data-target="#Navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+		 <a class="navbar-brand" href="/Buysell"><img id ="logo" src="/stylesheets/logo_light.jpeg" height="70" width="70" style="border-radius: 50%"></a>	
+      <div class="collapse navbar-collapse" id="Navbar">
+        <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"style='padding-left:40px;padding-top:3px'>
+							<li class="nav-item">
+		 <a class='nav-link link text-black 'style='font-weight:bold' href="/Buysell">Shop Now</a>
+							</li>
+							<li class="nav-item">
+		 <a class='nav-link link text-black ' style='font-weight:bold' href="/Buysell/new">Sell Now</a>
+							</li>
+			</ul>
+      </div>
+		<img id="Theme_change_button_light" height="38" width="38" src="https://img.icons8.com/doodle/48/000000/sun--v1.png"/>
+	 <img id="Theme_change_button_dark" height="30" width="30" src="https://img.icons8.com/ios-filled/50/000000/moon-man.png"/>
+    </nav>
+    <div class="container">
+      <div class="row row-content justify-content-center">
+
+        <div class="col-md-9">
+          <h3>Please fill the details</h3>
+        </div>
+
+        <div class="col-12 col-md-9">
+          <form method='post' action='/Buysell' enctype="multipart/form-data">
+
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="ItemName">Item Name</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control myclass" id="ItemName" placeholder="Item Name" name="name" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="BasicDescription">Description</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control  myclass" id="BasicDescription" placeholder="Basic Description" name="desc" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="telnum" class="col-12 col-md-2 col-form-label">Contact</label>
+              <div class="col-md-10">
+                <input type="tel" class="form-control  myclass" id="telnum" name="contact" placeholder="Mobile number">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="emailid" class="col-md-2 col-form-label">Email</label>
+              <div class="col-md-10">
+                <input type="email" class="form-control  myclass" id="emailid" name="email" placeholder="Email">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="image" class="col-md-2 col-form-label">Upload Photo</label>
+              <div class="col-md-10">
+                 <input type="file" class="form-control myclass" id="img" name="image" accept="image/*" required>
+              </div>
+            </div>
+
+			<div class="form-group row">
+              <div class="imageContainer" id="imgContainer">
+                  <div class="cancelBtnContainer" id="cancelBtnContainer">
+                    <i class="fa fa-close cancelBtn"></i>
+                  </div>
+
+                  <img src="" class="imagePreview">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="category" class="col-md-2 col-form-label">Choose category</label>
+              <div class="col-md-10">
+                <select  class='form-control myclass'name="category" id="category">
+                  <option value="electronics">Electronics</option>
+                  <option value="food">Food</option>
+                  <option value="Daily-use">Daily-use</option>
+                  <option value="Automobile">Automobile</option>
+                  <option value="accessories">Accessories</option>
+                  <option value="watches">Watches</option>
+                  <option value="others">Others</option>
+              </select>
+              </div>
+              
+            </div>
+
+            <div class="form-group row">
+              <label for="price" class="col-md-2 col-form-label">Set Price</label>
+              <div class="col-md-10">
+                <input type="number" class="form-control myclass" id="price" name="price" placeholder="In Ruppees" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-10 offset-md-6">
+                <button type="submit" class="btn btn-light btn-lg">Post Now</button>
+              </div>
+            </div>
+
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+	 <script type="text/javascript">
+		  var b = document.body;
+		  // var icon = document.getElementById("icon");
+		  var Dropdownicon = document.getElementById("Dropdownicon");
+		  var themechanger_light = document.getElementById("Theme_change_button_light");
+		  var themechanger_dark = document.getElementById("Theme_change_button_dark");
+		  var INPUTS = document.getElementsByClassName("form-control");
+		   themechanger_light.addEventListener("click", function() {
+			b.classList.toggle("light_theme");
+			// icon.classList.remove("icon_color_white");
+			// icon.classList.add("icon_color_black");
+			themechanger_light.style.display ="none";
+			themechanger_dark.style.display ="block";
+			document.getElementById("logo").src = "/stylesheets/logo_light.jpeg";
+			var i;
+			for(i = 0; i<INPUTS.length; i++)
+				{
+					INPUTS[i].style.color = "var(--black)";
+					INPUTS[i].classList.add("myclass");
+				}
+		  })
+			themechanger_dark.addEventListener("click", function() {
+			b.classList.toggle("light_theme");
+			// icon.classList.add("icon_color_white");
+			// icon.classList.remove("icon_color_black");
+			themechanger_dark.style.display ="none";
+			themechanger_light.style.display ="block";
+			document.getElementById("logo").src = "/stylesheets/logo_dark.jpeg";
+			var i;
+			for(i = 0; i<INPUTS.length; i++)
+				{
+					INPUTS[i].style.color = "var(--black)";
+					INPUTS[i].classList.remove("myclass");
+				}
+		  })
+		  themechanger_light.addEventListener("mouseenter", (e)=>{
+			themechanger_light.classList.add("Highlighter_light");
+		});
+		themechanger_light.addEventListener("mouseleave", (e)=>{
+			themechanger_light.classList.toggle("Highlighter_light");
+		});
+		themechanger_dark.addEventListener("mouseenter", (e)=>{
+			themechanger_dark.classList.add("Highlighter_dark");
+		});
+		themechanger_dark.addEventListener("mouseleave", (e)=>{
+			themechanger_dark.classList.toggle("Highlighter_dark");
+		});
+		  
+		  
+		  
+      const inpFile = document.getElementById("img");
+      const imgCont = document.getElementById("imgContainer");
+      const canbtc = document.getElementById("cancelBtnContainer")
+      const img = imgCont.querySelector(".imagePreview");
+      inpFile.addEventListener("change" , function(){
+        const file = this.files[0];
+        if(file)
+        {
+          const reader = new FileReader();
+          imgCont.style.display = "block";
+          reader.addEventListener("load" , function(){
+            img.setAttribute("src" , this.result);
+            imgCont.addEventListener("mouseenter" , function(){
+              canbtc.style.display = "flex";
+            });
+            imgCont.addEventListener("mouseleave" , function(){
+              canbtc.style.display = "none";
+            });
+          });
+          canbtc.addEventListener("click" , function(){
+              imgCont.style.display = null;
+              canbtc.style.display = null;
+              img.setAttribute("src", "");
+          });
+          reader.readAsDataURL(file);
+        }
+        else
+        {
+          imgCont.style.display = null;
+          canbtc.style.display = null;
+          img.setAttribute("src", "");
+        }
+      });
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
